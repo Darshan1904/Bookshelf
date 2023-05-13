@@ -1,0 +1,22 @@
+<%- include("../partials/header") -%>
+<h1 class="text-3xl text-purple-600 text-center py-5"><%= title %></h1>
+<form action="<%= action %>" method="post">
+    <div class="form-group">
+        <label>Title</label>
+        <input class="form-control" type = "text" name="message" required>
+        <label>Image</label>
+        <input class="form-control" type = "text" name="image" required>
+        <label>Author</label>
+        <input class="form-control" type = "text" name="author" required>
+        <label>Genre</label>
+        <input class="form-control" type = "text" name="genre" required>
+        <label>Publisher</label>
+        <input class="form-control" type = "text" name="publisher" required>
+        <label>Publish Date</label>
+        <input class="form-control" type = "text" name="publish_date" required>
+        <label>Price</label>
+        <input class="form-control" type = "text" name="price" required>
+    </div>
+    <button type = "submit" class="btn btn-primary bg-purple-500 text-white active:sacle-95"><%= btn %></button>
+</form>
+<%- include("../partials/footer") -%>

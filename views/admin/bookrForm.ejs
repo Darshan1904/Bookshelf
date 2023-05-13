@@ -1,0 +1,10 @@
+<%- include("../partials/header") -%>
+<h1 class="text-3xl text-purple-600 text-center py-5"><%= title %></h1>
+<form action="<%= action %>" method="post">
+    <div class="form-group">
+        <label>Book Name</label>
+        <input class="form-control" type = "text" name="message" required>
+    </div>
+    <button type = "submit" class="btn btn-primary bg-purple-500 text-white active:sacle-95"><%= btn %></button>
+</form>
+<%- include("../partials/footer") -%>

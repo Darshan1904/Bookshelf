@@ -1,0 +1,28 @@
+<%- include("../partials/header") -%>
+<h1 class="text-center text-4xl text-purple-600 font-mono">Favourite</h1>
+<div class="flex justify-center">
+    <div class="grid grid-cols-3 md:flex-row justify-center items-center">
+        <%{data.forEach((item)=>{%>
+            <div class="overflow-hidden bg-white m-4 shadow-sm flex flex-col justify-center rounded-md p-2">
+                
+                <div class="h-26 w-full overflow-hidden rounded-md"> <img src="<%=item.image%>"
+                        alt="" class="" /> </div>
+                <div class="text-sm text-gray-500 m-2 font-bold"><%= item.genre %></div>
+                <div class="font-bold text-lg text-black m-2 text-md"><%= item.title %></div>
+                <div class="text-black m-2 text-sm">
+                    <p><b class="text-black">Price</b> : <%= item.price %> $</p>
+                    <p><b class="text-black">Author</b> : <%= item.author %></p>
+                    <p><b class="text-black">Publisher</b> : <%= item.publisher %></p>
+                    <p><b class="text-black">Publish Date</b> : <%= item.publish_date %></p>
+                </div>
+                <div class="flex justify-center">
+                    <form action="/fav/<%=item.book_id%>" method="post">
+                        <button type="submit" class="bg-transparent text-purple-500 border-2 border-purple-500 px-6 py-2 shadow-md rounded-full my-3 hover:shadow-xl active:scale-90 transition duration-150">Remove</button>
+                    </form>
+                </div>
+            </div>
+        <%})}%>
+    </div>
+</div>
+<h3 class="text-center text-2xl font-sans"><b>Total Price</b> : <%= sum %>$</h3>
+<%- include("../partials/footer") -%>

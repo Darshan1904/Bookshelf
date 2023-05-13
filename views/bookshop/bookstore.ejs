@@ -1,0 +1,43 @@
+<%- include("../Partials/header") -%>
+<div>
+<div class="grid grid-cols-4 gap-4 my-5">
+    <a class="btn btn-dark btn-lg bg-purple-500 border-none rounded-full" href="/bookstore/Classic" role="button">Classic</a>
+    <a class="btn btn-dark btn-lg bg-purple-500 border-none rounded-full" href="/bookstore/Romance" role="button">Romance</a>
+    <a class="btn btn-dark btn-lg bg-purple-500 border-none rounded-full" href="/bookstore/Dystopian" role="button">Dystopian</a>
+    <a class="btn btn-dark btn-lg bg-purple-500 border-none rounded-full" href="/bookstore/Allegory" role="button">Allegory</a>
+    <a class="btn btn-dark btn-lg bg-purple-500 border-none rounded-full" href="/bookstore/Fantasy" role="button">Fantasy</a>
+    <a class="btn btn-dark btn-lg bg-purple-500 border-none rounded-full" href="/bookstore/Thriller" role="button">Thriller</a>
+    <a class="btn btn-dark btn-lg bg-purple-500 border-none rounded-full" href="/bookstore/Science Fiction" role="button">Science Fiction</a>
+    <a class="btn btn-dark btn-lg bg-purple-500 border-none rounded-full" href="/bookstore/Political Satire" role="button">Political Satire</a>
+</div>
+<div class="mx-auto text-center">
+<a class="px-5 btn text-white btn-lg bg-purple-500 border-none rounded-md" href="/sort" role="button">Sort</a>
+</div>
+<form action="/bookstore" method="post" class="mx-auto text-center py-3 my-4 ">
+    <input type="text" name="search" class="p-2 rounded-full border-4 border-purple-300 ">
+    <button type="submit" class="bg-purple-500 text-white border-none py-2 px-4 rounded-full"><i class="fa fa-search" aria-hidden="true"></i></button>
+    </p>
+</form>
+<div class="flex justify-center">
+    <div class="grid grid-cols-3 md:flex-row justify-center items-center">
+        <%{data.forEach((item)=>{%>
+            <div class="overflow-hidden bg-white m-4 shadow-sm flex flex-col justify-center rounded-md p-2">
+                <div class="h-26 w-full overflow-hidden rounded-md mx-auto"> <img src="<%=item.image%>"
+                       alt="<%=item.image%>" class="h-56 bg-black mx-auto"> </div>
+                <div class="text-sm text-gray-500 m-2 font-bold"><%= item.genre %></div>
+                <div class="font-bold text-lg text-black m-2 text-md"><%= item.title %></div>
+                <div class="text-black m-2 text-sm">
+                    <p><b class="text-black">Price</b> : <%= item.price %> $</p>
+                    <p><b class="text-black">Author</b> : <%= item.author %></p>
+                    <p><b class="text-black">Publisher</b> : <%= item.publisher %></p>
+                    <p><b class="text-black">Publish Date</b> : <%= item.publish_date %></p>
+                </div>
+                <div class="flex justify-center">
+                    <a href="/fav/<%=item.book_id%>" class="bg-transparent text-purple-500 border-2 border-purple-500 px-6 py-2 shadow-md rounded-full my-3 hover:shadow-xl active:scale-90 transition duration-150">Add Favourite</a>
+                </div>
+            </div>
+        <%})}%>
+    </div>
+</div>
+</div>
+<%- include("../Partials/footer") -%>
