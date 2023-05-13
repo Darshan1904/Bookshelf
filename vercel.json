@@ -3,5 +3,10 @@
     "name": "bookshelf",
     "builds": [{ "src": "app.js", "use": "@vercel/node"}],
     "routes": [{ "src": "/(.*)", "dest": "/app.js"}],
-    "views": [{ "src": "app.js", "dest": "/views"}]
+    "views": [{ "src": "app.js", "dest": "/views"}],
+    "functions": {
+        "app.js": {
+            "includeFiles": "views/**"
+        }
+    }
 }
