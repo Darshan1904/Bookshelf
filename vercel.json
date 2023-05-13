@@ -5,7 +5,10 @@
     "routes": [{ "src": "/(.*)", "dest": "/app.js"}],
     "views": [{ "src": "app.js", "dest": "/views"}],
     "functions": {
-        "app.js": {
+        "routes/": {
+            "includeFiles": "views/**"
+        },
+        "controller":{
             "includeFiles": "views/**"
         }
     }
