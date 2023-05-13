@@ -2,6 +2,5 @@
     "version": 2,
     "name": "bookshelf",
     "builds": [{ "src": "app.js", "use": "@vercel/node", "includeFiles": "views/**"}],
-    "routes": [{ "src": "/(.*)", "dest": "/app.js"}],
-    "views": [{ "src": "app.js", "dest": "/views"}]
+    "routes": [{ "src": "/(.*)", "dest": "/app.js"}]
 }
