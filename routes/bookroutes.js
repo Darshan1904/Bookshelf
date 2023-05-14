@@ -4,7 +4,7 @@ import { addFav, findAllBook, findGenre, findfav, removeFav, search, sort } from
 export const brouter = express.Router();
 
 brouter.get('/',async (req,res)=>{
-	res.render(__dirname + "bookshop/home");
+	res.render("bookshop/home");
 });
 
 brouter.get('/bookstore', findAllBook);

@@ -8,14 +8,15 @@ import { urouter } from './routes/userroutes.js';
 const app = express();
 
 app.use(bodyParser.urlencoded({extended:true}));
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs');
+app.set('views','views');
 app.use(express.static("public"));
 
 app.use(brouter);
 app.use(urouter);
 app.use(arouter);
 
-const PORT = process.env.PORT;
+let PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
 	console.log('App is running');
