@@ -1,5 +1,11 @@
 import express from 'express';
 import {connection}  from '../models/connect.js';
+import bcrypt from 'bcrypt';
+import jsonwebtoken from 'jsonwebtoken';
+import fetchUser from '../middleware/fetchuer.js';
+import dotenv from 'dotenv';
+dotenv.config();
+import localStorage from '../app.js';
 
 export const arouter = express.Router();
 
@@ -14,7 +20,15 @@ arouter.post('/admin/books',async (req,res)=>{
 	const [rows] = await connection.query(query, [id]);
 
 	if(rows[0]){
-	    if(rows[0].admPassword===req.body.password){
+		const check = await bcrypt.compare(req.body.password, rows[0].admPassword);
+	    if(check){
+			const data = {
+				user:{
+					id: id
+				}
+			}
+			const token = jsonwebtoken.sign(data,process.env.JWT_SECRET,{expiresIn:'1h'});
+			localStorage.setItem('token',token);
 			res.redirect("/admin/dashboard/book");
 		}
 		else{
@@ -26,28 +40,31 @@ arouter.post('/admin/books',async (req,res)=>{
 	}
 })
 
-arouter.get('/admin/dashboard/book',async (req,res)=>{
+arouter.get('/admin/dashboard/book', fetchUser,async (req,res)=>{
 	res.render('admin/adminOps');
 });
 
-arouter.get('/admin/dashboard/addbook',async (req,res)=>{
+arouter.get('/admin/dashboard/addbook', fetchUser, async (req,res)=>{
 	res.render('admin/bookForm', {title:"Add Book", action:"/admin/dashboard/addbook",btn:"publish"});
 });
 
-arouter.get('/admin/dashboard/removebook',async (req,res)=>{
+arouter.get('/admin/dashboard/removebook',fetchUser,async (req,res)=>{
 	res.render('admin/bookrForm', {title:"Remove Book", action:"/admin/dashboard/removebook",btn:"Remove"});
 });
 
-arouter.get('/admin/dashboard/addadmin',async (req,res) => {
+arouter.get('/admin/dashboard/addadmin', fetchUser,async (req,res) => {
 	res.render('admin/addadmin');
 });
 
 arouter.post('/admin/dashboard/addadmin',async (req,res) => {
 	const name = req.body.message;
 	const pswd = req.body.password;
+
+	const salt = await bcrypt.genSalt(10);
+	const hashedPassword = await bcrypt.hash(pswd, salt);
 	
 	try{
-		const query = `INSERT INTO Admins (adminName,admPassword) VALUES ("${name}","${pswd}");`;
+		const query = `INSERT INTO Admins (adminName,admPassword) VALUES ("${name}","${hashedPassword}");`;
 		const [rows] = await connection.query(query);
 	}catch(err){
 		console.error(err);
@@ -86,7 +103,7 @@ arouter.post('/admin/dashboard/addbook', async (req, res) => {
 	}
 });
 
-arouter.get('/admin/dashboard/changeprice', async (req,res) => {
+arouter.get('/admin/dashboard/changeprice', fetchUser, async (req,res) => {
 	res.render('admin/updateForm', {title:"Change Price", action:"/admin/dashboard/changeprice", btn:"Change Price"});
 });
 

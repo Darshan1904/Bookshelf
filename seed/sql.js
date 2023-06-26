@@ -3,7 +3,7 @@ export const dropAdminTable = 'DROP TABLE IF EXISTS Admins';
 export const createAdminTable = `CREATE TABLE Admins (
     admin_id INT PRIMARY KEY AUTO_INCREMENT,
     adminName VARCHAR(255) NOT NULL,
-    admPassword VARCHAR(255) NOT NULL
+    admPassword VARCHAR(10000) NOT NULL
 );`;
 
 export const insertIntoAdminTable = `INSERT INTO Admins (admin_id,adminName,admPassword)
@@ -48,7 +48,7 @@ export const createCustomersTable = `CREATE TABLE Customers (
     customer_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE,
-    password VARCHAR(20)
+    password VARCHAR(10000)
 );`;
 
 export const insertIntoCustomersTable = `INSERT INTO Customers (customer_id, name, email, password)

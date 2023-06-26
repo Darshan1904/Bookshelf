@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import { brouter } from './routes/bookroutes.js';
 import { arouter } from './routes/adminroutes.js';
 import { urouter } from './routes/userroutes.js';
+import { LocalStorage } from 'node-localstorage';
+const localStorage = new LocalStorage('./scratch');
 
 const app = express();
 
@@ -21,3 +23,5 @@ let PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
 	console.log('App is running');
 });
+
+export default localStorage;
